@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto space-y-8 animate-fade-in-up">
+    <!-- Header -->
+    <div>
+        <h1 class="text-3xl font-bold text-white mb-2">Cosmic Library</h1>
+        <p class="text-gray-400">Deep dives into the mysteries of the universe.</p>
+    </div>
+
+    <!-- Book Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for book in books %}
+        <div
+            class="group relative rounded-2xl glass border border-white/5 hover:border-neon-blue/30 transition-all hover:shadow-lg hover:shadow-neon-blue/10 overflow-hidden flex flex-col h-full">
+            <!-- Cover Image -->
+            <div class="h-48 overflow-hidden relative">
+                <img src="{{ book.cover }}" alt="{{ book.title }}"
+                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-space-900 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 right-4">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-neon-blue mb-1 block">Science
+                        Series</span>
+                    <h3 class="text-xl font-bold text-white group-hover:text-neon-blue transition-colors">{{ book.title
+                        }}</h3>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="p-6 flex-1 flex flex-col">
+                <p class="text-sm text-gray-400 mb-4 flex-1">{{ book.description }}</p>
+
+                <div class="flex items-center justify-between text-xs text-gray-500 mb-4">
+                    <span>{{ book.author }}</span>
+                    <span>{{ book.total_chapters }} Chapters</span>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-800 rounded-full h-1.5 mb-6">
+                    <div class="bg-gradient-to-r from-neon-blue to-purple-500 h-1.5 rounded-full"
+                        style="width: {{ book.progress }}%"></div>
+                </div>
+
+                <a href="/books/{{ book.id }}"
+                    class="block w-full py-3 text-center rounded-xl bg-white/5 hover:bg-neon-blue/20 text-white font-medium transition-colors border border-white/5 hover:border-neon-blue/50">
+                    {% if book.progress > 0 %}
+                    Continue Reading
+                    {% else %}
+                    Start Reading
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

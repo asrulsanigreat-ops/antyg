@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env/
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+
+# Web
+node_modules/
+.DS_Store
+Thumbs.db
+
+# Project specific
+*.bat
+# Keeping .bat files might be useful if they are part of the project deployment/setup, 
+# but usually venv specific ones are ignored. 
+# I'll keep the ones I saw in the list for now if they are generic.

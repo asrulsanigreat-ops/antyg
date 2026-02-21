@@ -1,0 +1,162 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto space-y-8 animate-fade-in-up pb-20">
+    <!-- Breadcrumb & Back -->
+    <div class="flex items-center space-x-2 text-sm text-gray-500 mb-4">
+        <a href="/journals" class="hover:text-white transition-colors">Journals</a>
+        <span>/</span>
+        <span class="text-gray-300">{{ journal.title }}</span>
+    </div>
+
+    <!-- Featured Image -->
+    <div class="relative h-96 rounded-2xl overflow-hidden mb-8">
+        <img src="{{ journal.featured_image }}" alt="{{ journal.title }}" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-space-900 via-space-900/50 to-transparent"></div>
+    </div>
+
+    <!-- Article Header -->
+    <div class="space-y-4">
+        <!-- Tags -->
+        <div class="flex items-center space-x-2">
+            {% for tag in journal.tags %}
+            <span class="px-3 py-1 rounded-full bg-neon-blue/10 text-neon-blue text-sm border border-neon-blue/20">{{
+                tag }}</span>
+            {% endfor %}
+        </div>
+
+        <!-- Title -->
+        <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight">{{ journal.title }}</h1>
+
+        <!-- Meta Info -->
+        <div class="flex items-center gap-6 text-sm text-gray-400">
+            <span class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                </svg>
+                {{ journal.author }}
+            </span>
+            <span class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+                    <line x1="16" x2="16" y1="2" y2="6" />
+                    <line x1="8" x2="8" y1="2" y2="6" />
+                    <line x1="3" x2="21" y1="10" y2="10" />
+                </svg>
+                {{ journal.date }}
+            </span>
+            <span class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                </svg>
+                {{ journal.read_time }}
+            </span>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
+        <!-- Main Content -->
+        <div class="lg:col-span-2 space-y-8">
+            <!-- Introduction -->
+            <div class="prose prose-invert prose-lg max-w-none">
+                <p class="text-xl text-gray-300 leading-relaxed">{{ journal.content.intro }}</p>
+            </div>
+
+            <!-- Content Sections -->
+            {% if journal.content.sections %}
+            {% for section in journal.content.sections %}
+            <div class="space-y-4">
+                <h2 class="text-2xl font-bold text-white">{{ section.heading }}</h2>
+                <p class="text-gray-300 leading-relaxed">{{ section.text }}</p>
+
+                {% if section.image %}
+                <div class="my-6 rounded-xl overflow-hidden border border-white/5">
+                    <img src="{{ section.image }}" alt="{{ section.image_caption }}" class="w-full">
+                    {% if section.image_caption %}
+                    <div class="p-3 bg-white/5 text-sm text-gray-400 text-center">
+                        {{ section.image_caption }}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="space-y-6">
+            <!-- Key Facts -->
+            {% if journal.key_facts %}
+            <div class="glass rounded-2xl p-6 border border-white/5 sticky top-6">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 text-neon-blue" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 16v-4" />
+                        <path d="M12 8h.01" />
+                    </svg>
+                    Key Facts
+                </h3>
+                <div class="space-y-3">
+                    {% for key, value in journal.key_facts.items() %}
+                    <div class="pb-3 border-b border-white/5 last:border-0 last:pb-0">
+                        <div class="text-xs text-gray-500 uppercase tracking-wider mb-1">{{ key }}</div>
+                        <div class="text-sm text-white font-medium">{{ value }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Share & Actions -->
+            <div class="glass rounded-2xl p-6 border border-white/5">
+                <h3 class="text-sm font-bold text-white mb-4">Share Article</h3>
+                <div class="flex gap-2">
+                    <button
+                        class="flex-1 p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-gray-400 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-auto" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                            <polyline points="16 6 12 2 8 6" />
+                            <line x1="12" x2="12" y1="2" y2="15" />
+                        </svg>
+                    </button>
+                    <button
+                        class="flex-1 p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-gray-400 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-auto" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                        </svg>
+                    </button>
+                    <button
+                        class="flex-1 p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-gray-400 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-auto" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Journals -->
+    <div class="pt-8 border-t border-gray-800">
+        <a href="/journals"
+            class="inline-flex items-center px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-6-6 6-6" />
+            </svg>
+            Back to Journals
+        </a>
+    </div>
+</div>
+{% endblock %}

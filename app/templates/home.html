@@ -1,0 +1,175 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto space-y-8 animate-fade-in-up">
+    <!-- Welcome Section -->
+    <div class="flex justify-between items-end">
+        <div>
+            <h1 class="text-3xl font-bold text-white mb-2">Welcome back, Traveler.</h1>
+            <p class="text-gray-400">Your journey through the cosmos continues.</p>
+        </div>
+        <div class="hidden md:block">
+            <a href="/books/1"
+                class="inline-block px-6 py-2.5 bg-neon-blue text-space-900 font-semibold rounded-full hover:bg-neon-blue/90 transition-colors shadow-lg shadow-neon-blue/20">
+                Continue Learning
+            </a>
+        </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="p-6 rounded-2xl glass border border-white/5 hover:border-neon-blue/30 transition-all group">
+            <div class="flex justify-between items-start mb-4">
+                <div class="p-2 rounded-lg bg-neon-blue/10 text-neon-blue">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 20h9" />
+                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                    </svg>
+                </div>
+                <span class="text-xs font-medium text-green-400">+12%</span>
+            </div>
+            <div class="text-2xl font-bold text-white mb-1">12</div>
+            <div class="text-sm text-gray-400">Journals Read</div>
+        </div>
+
+        <div class="p-6 rounded-2xl glass border border-white/5 hover:border-neon-pink/30 transition-all group">
+            <div class="flex justify-between items-start mb-4">
+                <div class="p-2 rounded-lg bg-neon-pink/10 text-neon-pink">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                        <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                        <path d="M4 22h16" />
+                        <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                        <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                        <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                    </svg>
+                </div>
+                <span class="text-xs font-medium text-gray-500">Rank #42</span>
+            </div>
+            <div class="text-2xl font-bold text-white mb-1">2,450</div>
+            <div class="text-sm text-gray-400">Total XP</div>
+        </div>
+
+        <div class="p-6 rounded-2xl glass border border-white/5 hover:border-yellow-500/30 transition-all group">
+            <div class="flex justify-between items-start mb-4">
+                <div class="p-2 rounded-lg bg-yellow-500/10 text-yellow-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                </div>
+                <span class="text-xs font-medium text-orange-400">On Fire!</span>
+            </div>
+            <div class="text-2xl font-bold text-white mb-1">5 Days</div>
+            <div class="text-sm text-gray-400">Current Streak</div>
+        </div>
+
+        <div class="p-6 rounded-2xl glass border border-white/5 hover:border-purple-500/30 transition-all group">
+            <div class="flex justify-between items-start mb-4">
+                <div class="p-2 rounded-lg bg-purple-500/10 text-purple-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <path
+                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                        <path d="M2 12h20" />
+                    </svg>
+                </div>
+                <span class="text-xs font-medium text-purple-300">New</span>
+            </div>
+            <div class="text-2xl font-bold text-white mb-1">Mars</div>
+            <div class="text-sm text-gray-400">Next Destination</div>
+        </div>
+    </div>
+
+    <!-- Continue Learning & News -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Feed -->
+        <div class="lg:col-span-2 space-y-6">
+            <h2 class="text-xl font-semibold text-white">Continue Learning</h2>
+
+            <!-- Course Card -->
+            <a href="/books/1"
+                class="block group relative overflow-hidden rounded-2xl glass border border-white/5 hover:border-neon-blue/30 transition-all shadow-lg hover:shadow-neon-blue/10">
+                <div
+                    class="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity">
+                </div>
+                <div class="p-6 flex items-center space-x-6 relative z-10">
+                    <div class="w-24 h-24 rounded-xl bg-gray-800 flex-shrink-0 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
+                            alt="Earth from space" class="w-full h-full object-cover text-xs">
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="text-xs font-medium text-neon-blue mb-1 block">PHYSICS 101</span>
+                                <h3 class="text-lg font-bold text-white mb-1">Forces & Motion</h3>
+                                <p class="text-sm text-gray-400 line-clamp-2">Understand how gravity keeps the universe
+                                    together and how rockets escape it.</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-sm font-semibold text-white">45%</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 w-full bg-gray-800 rounded-full h-1.5">
+                            <div class="bg-neon-blue h-1.5 rounded-full" style="width: 45%"></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/books/2"
+                class="block group relative overflow-hidden rounded-2xl glass border border-white/5 hover:border-neon-pink/30 transition-all shadow-lg hover:shadow-neon-pink/10">
+                <div class="p-6 flex items-center space-x-6 relative z-10">
+                    <div class="w-24 h-24 rounded-xl bg-gray-800 flex-shrink-0 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1614730341194-75c60740a070?q=80&w=2074&auto=format&fit=crop"
+                            alt="Nebula" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="text-xs font-medium text-neon-pink mb-1 block">ASTROPHYSICS</span>
+                                <h3 class="text-lg font-bold text-white mb-1">Stellar Life Cycles</h3>
+                                <p class="text-sm text-gray-400 line-clamp-2">From nebulae to black holes: the
+                                    incredible journey of a star.</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-sm font-semibold text-white">10%</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 w-full bg-gray-800 rounded-full h-1.5">
+                            <div class="bg-neon-pink h-1.5 rounded-full" style="width: 10%"></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Sidebar News -->
+        <div class="space-y-6">
+            <h2 class="text-xl font-semibold text-white">Cosmic News</h2>
+            <div class="glass rounded-2xl border border-white/5 p-4 space-y-4">
+                <a href="/journals/1" class="block group">
+                    <span class="text-xs text-gray-500 mb-1 block">2 hours ago</span>
+                    <h4 class="text-sm font-medium text-white group-hover:text-neon-blue transition-colors">James Webb
+                        Telescope finds oldest galaxy yet</h4>
+                </a>
+                <div class="h-px bg-white/5"></div>
+                <a href="/journals/4" class="block group">
+                    <span class="text-xs text-gray-500 mb-1 block">5 hours ago</span>
+                    <h4 class="text-sm font-medium text-white group-hover:text-neon-blue transition-colors">SpaceX
+                        Starship prepares for next orbital test</h4>
+                </a>
+                <div class="h-px bg-white/5"></div>
+                <a href="/journals/8" class="block group">
+                    <span class="text-xs text-gray-500 mb-1 block">1 day ago</span>
+                    <h4 class="text-sm font-medium text-white group-hover:text-neon-blue transition-colors">New evidence
+                        of water on Mars surface</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-8 animate-fade-in-up pb-20">
+    <!-- Breadcrumb & Header -->
+    <div class="flex items-center space-x-2 text-sm text-gray-500 mb-4">
+        <a href="/books" class="hover:text-white transition-colors">Library</a>
+        <span>/</span>
+        <span class="text-gray-300">{{ book.title }}</span>
+    </div>
+
+    <div class="relative h-64 rounded-2xl overflow-hidden mb-8">
+        <img src="{{ book.cover }}" alt="{{ book.title }}" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-space-900 via-space-900/50 to-transparent"></div>
+        <div class="absolute bottom-6 left-6 grid gap-2">
+            <h1 class="text-4xl font-bold text-white">{{ book.title }}</h1>
+            <p class="text-lg text-gray-300">{{ book.author }}</p>
+        </div>
+    </div>
+
+    <!-- Reader Interface -->
+    <div class="prose prose-invert prose-lg max-w-none">
+        {% if book.chapters %}
+        {% for chapter in book.chapters %}
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold text-neon-blue mb-6">Chapter {{ chapter.id }}: {{ chapter.title }}</h2>
+            <p class="leading-relaxed text-gray-300">
+                {{ chapter.content }}
+            </p>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="text-center py-12">
+            <p class="text-gray-400">No chapters available for this book yet.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Navigation -->
+    <div class="flex justify-between items-center pt-8 border-t border-gray-800">
+        <button
+            class="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-6-6 6-6" />
+            </svg>
+            Previous
+        </button>
+        <button
+            class="px-6 py-3 rounded-xl bg-neon-blue text-space-900 font-bold hover:bg-neon-blue/90 transition-colors flex items-center shadow-lg shadow-neon-blue/20">
+            Next Chapter
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6" />
+            </svg>
+        </button>
+    </div>
+</div>
+{% endblock %}

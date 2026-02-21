@@ -1,0 +1,136 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto animate-fade-in-up pb-20">
+    <!-- Header -->
+    <div class="mb-8">
+        <a href="/tests" class="inline-flex items-center text-gray-400 hover:text-white transition-colors mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="m15 18-6-6 6-6" />
+            </svg>
+            Back to Quizzes
+        </a>
+
+        <div class="glass rounded-2xl p-6 border border-white/10">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-white mb-2">{{ quiz.title }}</h1>
+                    <p class="text-gray-400">{{ quiz.description }}</p>
+                    <span class="sr-only">Start Quiz</span>
+                </div>
+                <span class="px-4 py-2 text-sm rounded-full 
+                    {% if quiz.difficulty == 'Beginner' %}bg-green-500/10 text-green-400 border border-green-500/20
+                    {% elif quiz.difficulty == 'Intermediate' %}bg-yellow-500/10 text-yellow-400 border border-yellow-500/20
+                    {% else %}bg-red-500/10 text-red-400 border border-red-500/20{% endif %}">
+                    {{ quiz.difficulty }}
+                </span>
+            </div>
+
+            <div class="flex items-center gap-6 text-sm text-gray-500">
+                <span>📝 {{ quiz.questions|length }} Questions</span>
+                <span>⭐ {{ quiz.xp_reward }} XP</span>
+                <span>🏷️ {{ quiz.category }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Form -->
+    <form id="quiz-form" method="POST" action="/tests/{{ quiz.id }}/submit" class="space-y-6">
+        {% for question in quiz.questions %}
+        <div
+            class="glass rounded-2xl p-6 border border-white/5 hover:border-purple-500/20 transition-all question-card">
+            <!-- Question Number & Text -->
+            <div class="mb-6">
+                <div class="flex items-center gap-3 mb-3">
+                    <span
+                        class="flex items-center justify-center w-8 h-8 rounded-full bg-purple-500/10 text-purple-400 font-bold text-sm border border-purple-500/20">
+                        {{ loop.index }}
+                    </span>
+                    <span class="text-xs text-gray-500 uppercase tracking-wider">
+                        {% if question.type == 'multiple_choice' %}Multiple Choice
+                        {% elif question.type == 'true_false' %}True or False
+                        {% endif %}
+                    </span>
+                </div>
+                <h3 class="text-xl text-white font-medium">{{ question.question }}</h3>
+            </div>
+
+            <!-- Answer Options -->
+            <div class="space-y-3">
+                {% if question.type == 'multiple_choice' %}
+                {% for option in question.options %}
+                <label
+                    class="flex items-center p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-neon-blue/30 cursor-pointer transition-all group">
+                    <input type="radio" name="question_{{ question.id }}" value="{{ option }}" required
+                        class="w-5 h-5 text-neon-blue focus:ring-2 focus:ring-neon-blue/50 focus:ring-offset-0 bg-gray-700 border-gray-600">
+                    <span class="ml-4 text-gray-300 group-hover:text-white transition-colors">{{ option }}</span>
+                </label>
+                {% endfor %}
+
+                {% elif question.type == 'true_false' %}
+                <label
+                    class="flex items-center p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-neon-blue/30 cursor-pointer transition-all group">
+                    <input type="radio" name="question_{{ question.id }}" value="True" required
+                        class="w-5 h-5 text-neon-blue focus:ring-2 focus:ring-neon-blue/50 focus:ring-offset-0 bg-gray-700 border-gray-600">
+                    <span class="ml-4 text-gray-300 group-hover:text-white transition-colors">✓ True</span>
+                </label>
+                <label
+                    class="flex items-center p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-neon-blue/30 cursor-pointer transition-all group">
+                    <input type="radio" name="question_{{ question.id }}" value="False" required
+                        class="w-5 h-5 text-neon-blue focus:ring-2 focus:ring-neon-blue/50 focus:ring-offset-0 bg-gray-700 border-gray-600">
+                    <span class="ml-4 text-gray-300 group-hover:text-white transition-colors">✗ False</span>
+                </label>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Submit Button -->
+        <div class="sticky bottom-6 flex justify-center">
+            <button type="submit" class="px-12 py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-neon-blue text-white font-bold text-lg
+                hover:from-purple-500 hover:to-blue-500 transform hover:scale-105 transition-all duration-300
+                shadow-2xl shadow-purple-500/50 hover:shadow-purple-500/70">
+                <span class="flex items-center gap-3">
+                    Submit Quiz
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="m9 18 6-6-6-6" />
+                    </svg>
+                </span>
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Add smooth scroll to questions
+    document.querySelectorAll('.question-card').forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.05}s`;
+    });
+
+    // Form validation before submit
+    document.getElementById('quiz-form').addEventListener('submit', function (e) {
+        const totalQuestions = {{ quiz.questions| length
+    }};
+    const answeredQuestions = new Set();
+
+    // Count answered questions
+    document.querySelectorAll('input[type="radio"]:checked').forEach(input => {
+        const questionId = input.name;
+        answeredQuestions.add(questionId);
+    });
+
+    if (answeredQuestions.size < totalQuestions) {
+        e.preventDefault();
+        alert(`Please answer all questions! (${answeredQuestions.size}/${totalQuestions} answered)`);
+        return false;
+    }
+
+    // Add loading state
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    submitBtn.innerHTML = '<span class="flex items-center gap-3">Calculating Score... <span class="animate-spin">⭐</span></span>';
+    submitBtn.disabled = true;
+});
+</script>
+{% endblock %}
