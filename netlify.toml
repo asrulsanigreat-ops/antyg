@@ -1,12 +1,12 @@
 [build]
   command = "pip install -r requirements.txt"
-  publish = "app/static" # Netlify expects a static folder for the CDN, but we'll use functions for the app
+  publish = "app/static"
 
 [functions]
-  directory = "."
-  included_files = ["app/**", "netlify_handler.py"]
+  directory = "netlify/functions"
+  included_files = ["app/**"]
 
 [[redirects]]
   from = "/*"
-  to = "/.netlify/functions/netlify_handler"
+  to = "/.netlify/functions/api"
   status = 200
