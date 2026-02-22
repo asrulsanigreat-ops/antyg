@@ -13,10 +13,8 @@ dist/
 # Logs
 *.log
 
-# Web
-node_modules/
-.DS_Store
-Thumbs.db
+# Netlify
+.netlify/
 
 # Project specific
 *.bat
