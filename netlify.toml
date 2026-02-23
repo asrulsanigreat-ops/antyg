@@ -1,6 +1,6 @@
 [build]
   command = "pip install -r requirements.txt"
-  publish = "app/static"
+  publish = "public"
 
 [functions]
   directory = "netlify/functions"
@@ -10,3 +10,4 @@
   from = "/*"
   to = "/.netlify/functions/api"
   status = 200
+  force = true
